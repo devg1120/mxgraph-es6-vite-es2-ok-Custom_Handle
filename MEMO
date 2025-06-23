@@ -1,0 +1,19 @@
+
+# lib
+
+handler/ mxHandle.js 
+
+  init() {
+    //var html = this.isHtmlRequired();
+    html = true;  // GUSA GS
+
+
+#/grapheditor/www/js  /Shapes.js
+
+import {
+  ....
+  mxVertexHandler,
+  mxEdgeHandler,
+  mxHandle
+} from "../../../../dist/mxgraph.es.js";
+

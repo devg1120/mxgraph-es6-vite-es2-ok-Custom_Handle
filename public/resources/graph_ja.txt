@@ -1,0 +1,11 @@
+alreadyConnected=Nodes already connected
+containsValidationErrors=Contains validation errors
+updatingDocument=Updating Document. Please wait...
+updatingSelection=Updating Selection. Please wait...
+collapse-expand=Collapse/Expand
+doubleClickOrientation=Doubleclick to change orientation
+close=閉じる
+error=エラー
+done=終了
+cancel=取り消し
+ok=了解
