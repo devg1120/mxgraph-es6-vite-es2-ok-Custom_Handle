@@ -1118,8 +1118,9 @@ Sidebar.prototype.addGeneralPalette = function (expand) {
       null,
       "rect rectangle box",
     ),
-    this.createVertexTemplateEntry(
-      "rounded=1;whiteSpace=wrap;html=1;",
+    this.createVertexTemplateEntry(                            //GUSA GS
+      //"rounded=1;whiteSpace=wrap;html=1;",
+      "shape=roundedRectangle;rounded=1;whiteSpace=wrap;html=1;",
       120,
       60,
       "",

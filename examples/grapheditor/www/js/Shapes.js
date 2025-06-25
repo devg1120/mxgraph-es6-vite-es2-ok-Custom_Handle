@@ -31,9 +31,11 @@ import {
   mxCloud,
   mxArrow,
   mxConstants,
-mxVertexHandler,
-mxEdgeHandler,
-	mxHandle
+
+  mxVertexHandler,
+  mxEdgeHandler,
+  mxHandle,
+  mxStencilRegistry,
 } from "../../../../dist/mxgraph.es.js";
 
 import { Graph } from "./Graph.js";
@@ -5082,7 +5084,8 @@ import { Graph } from "./Graph.js";
       );
     }
 
-    function createArcHandleFunction() {
+    function createArcHandleFunction_() {
+	    console.log("createArcHandleFunction set");
       return function (state) {
         var handles = [];
 
@@ -5090,6 +5093,14 @@ import { Graph } from "./Graph.js";
           handles.push(createArcHandle(state));
         }
 
+	    console.log("createArcHandleFunction exec", handles);
+        return handles;
+      };
+    }
+
+    function createArcHandleFunction() {  // GUSA GS
+      return function (state) {
+        var handles = [];
         return handles;
       };
     }
@@ -5883,6 +5894,9 @@ import { Graph } from "./Graph.js";
       rectangle: createArcHandleFunction(),
       triangle: createArcHandleFunction(),
       rhombus: createArcHandleFunction(),
+      roundedRectangle: function (state) {
+         return []
+      },
       umlLifeline: function (state) {
         return [
           createHandle(
@@ -6841,13 +6855,58 @@ import { Graph } from "./Graph.js";
     var vertexHandlerCreateCustomHandles =
       mxVertexHandler.prototype.createCustomHandles;
 
+    // GUSA GS
+	   /*
+    mxVertexHandler.prototype.createCustomHandles = function () {
+                        // Not rotatable means locked
+                        if (this.state.view.graph.getSelectionCount() == 1)
+                        {
+                                if (this.graph.isCellRotatable(this.state.cell))
+                                // LATER: Make locked state independent of rotatable flag, fix toggle if default is false
+                                if (this.graph.isCellResizable(this.state.cell) || this.graph.isCellMovable(this.state.cell))
+                                {
+                                        var name = this.state.style['shape'];
+
+                                        if (mxCellRenderer.defaultShapes[name] == null &&
+                                                mxStencilRegistry.getStencil(name) == null)
+                                        {
+                                                name = mxConstants.SHAPE_RECTANGLE;
+                                                console.log("set mxConstants.SHAPE_RECTANGLE");
+                                        }
+
+                                        var fn = handleFactory[name];
+
+            console.log("name", name, fn);
+
+                                        if (fn == null && this.state.shape != null && this.state.shape.isRoundable())
+                                        {
+						console.log("isRoundable");
+                                                fn = handleFactory[mxConstants.SHAPE_RECTANGLE];
+                                        }
+
+                                        if (fn != null)
+                                        {
+                                                let handles =  fn(this.state);
+                                                console.log(handles);
+                                                return handles;
+                                        }
+                                }
+                        }
+
+                        return null;
+
+    }
+*/
+
     mxVertexHandler.prototype.createCustomHandles = function () {
       var handles = vertexHandlerCreateCustomHandles.apply(this, arguments);
 
       if (this.graph.isCellRotatable(this.state.cell)) {
         // LATER: Make locked state independent of rotatable flag, fix toggle if default is false
         //if (this.graph.isCellResizable(this.state.cell) || this.graph.isCellMovable(this.state.cell))
+	     
         var name = this.state.style["shape"];
+	 console.log("name", name);
 
         if (
           mxCellRenderer.defaultShapes[name] == null &&
@@ -6858,6 +6917,7 @@ import { Graph } from "./Graph.js";
           name = mxConstants.SHAPE_SWIMLANE;
         }
 
+	 console.log("cange name", name);
         var fn = handleFactory[name];
 
         if (
@@ -6867,6 +6927,7 @@ import { Graph } from "./Graph.js";
         ) {
           fn = handleFactory[mxConstants.SHAPE_RECTANGLE];
         }
+
 
         if (fn != null) {
           var temp = fn(this.state);
@@ -6879,10 +6940,15 @@ import { Graph } from "./Graph.js";
             }
           }
         }
+
+
       }
 
+	    console.log("name", name);
+	    console.log("handles", handles);
       return handles;
     };
+
 
     mxEdgeHandler.prototype.createCustomHandles = function () {
       var name = this.state.style["shape"];

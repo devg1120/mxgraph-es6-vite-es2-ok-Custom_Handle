@@ -148,8 +148,9 @@ export class mxCodec {
 
       //var dec = mxCodecRegistry.getCodec(ctor);
       //var dec = mxCodecRegistry.getCodec(node.nodeName);
-      console.log("decode getCodec:", node.nodeName);
-      var dec = mxCodecRegistry.getCodec(node.nodeName);
+	   
+      //console.log("decode getCodec:", node.nodeName);
+      var dec = mxCodecRegistry.getCodec(node.nodeName);  //GUSA GS
 
       if (dec != null) {
         obj = dec.decode(this, node, into);

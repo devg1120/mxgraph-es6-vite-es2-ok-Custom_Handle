@@ -8,6 +8,7 @@ import { mxPoint } from "@mxgraph/util/mxPoint";
 
 export class mxHandle {
   ignoreGrid = false;
+  cursor = 'default';
 
   constructor(state, cursor, image, shape) {
     this.graph = state.view.graph;
@@ -85,8 +86,7 @@ export class mxHandle {
   }
 
   init() {
-    //var html = this.isHtmlRequired();
-    html = true;  // GUSA GS
+    var html = this.isHtmlRequired();
     if (this.image != null) {
       this.shape = new mxImageShape(
         new mxRectangle(0, 0, this.image.width, this.image.height),
@@ -124,13 +124,15 @@ export class mxHandle {
           ? mxConstants.DIALECT_MIXEDHTML
           : mxConstants.DIALECT_SVG;
 
-      if (this.cursor != null) {
+      if (this.cursor != null) { 
+     //this.cursor = 'default';        // GUSA GS
         this.shape.init(this.graph.getView().getOverlayPane());
       }
     }
 
     mxEvent.redirectMouseEvents(this.shape.node, this.graph, this.state);
     this.shape.node.style.cursor = this.cursor;
+
   }
 
   redraw() {
@@ -154,6 +156,9 @@ export class mxHandle {
   }
 
   isHtmlRequired() {
+      //console.log("isHtmlRequired 1:",this.state.text  );
+      //console.log("isHtmlRequired 2:",this.state.text.node.parentNode == this.graph.container);
+
     return (
       this.state.text != null &&
       this.state.text.node.parentNode == this.graph.container

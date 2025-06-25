@@ -72,7 +72,6 @@ static   rotationHandleVSpacing = -16;
       this.graph,
       this.state,
     );
-
     if (this.graph.isCellMovable(this.state.cell)) {
       this.selectionBorder.setCursor(mxConstants.CURSOR_MOVABLE_VERTEX);
     }
@@ -147,6 +146,9 @@ static   rotationHandleVSpacing = -16;
       );
       this.sizers.push(this.rotationShape);
     }
+
+    console.log("sizers", this.sizers);
+
 
     this.customHandles = this.createCustomHandles();
     this.redraw();
@@ -269,7 +271,6 @@ static   rotationHandleVSpacing = -16;
     if (!this.isSizerVisible(index)) {
       sizer.visible = false;
     }
-
     return sizer;
   }
 
@@ -295,6 +296,7 @@ static   rotationHandleVSpacing = -16;
         mxConstants.HANDLE_STROKECOLOR,
       );
     } else {
+       console.log("createSizerShape C", bounds);
       return new mxRectangleShape(
         bounds,
         fillColor || mxConstants.HANDLE_FILLCOLOR,
@@ -1298,7 +1300,6 @@ static   rotationHandleVSpacing = -16;
     var tol = this.tolerance;
     this.horizontalOffset = 0;
     this.verticalOffset = 0;
-
     if (this.customHandles != null) {
       for (var i = 0; i < this.customHandles.length; i++) {
         var temp = this.customHandles[i].shape.node.style.display;

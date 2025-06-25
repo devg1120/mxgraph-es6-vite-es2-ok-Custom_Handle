@@ -180,7 +180,6 @@ export class mxCellRenderer {
   createLabel(state, value) {
     var graph = state.view.graph;
     var isEdge = graph.getModel().isEdge(state.cell);
-
     if (
       state.style[mxConstants.STYLE_FONTSIZE] > 0 ||
       state.style[mxConstants.STYLE_FONTSIZE] == null

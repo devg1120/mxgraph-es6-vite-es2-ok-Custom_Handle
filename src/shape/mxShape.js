@@ -37,7 +37,6 @@ export class mxShape {
   init(container) {
     if (this.node == null) {
       this.node = this.create(container);
-
       if (container != null) {
         container.appendChild(this.node);
       }
@@ -970,7 +969,6 @@ export class mxShape {
     ) {
       try {
         var b = this.node.getBBox();
-
         if (b.width > 0 && b.height > 0) {
           this.boundingBox = new mxRectangle(b.x, b.y, b.width, b.height);
           this.boundingBox.grow((this.strokewidth * this.scale) / 2);
@@ -978,6 +976,7 @@ export class mxShape {
         }
       } catch (e) {
         /* ignore */
+	      console.log("updateBoundingBox   Err");
       }
     }
 
