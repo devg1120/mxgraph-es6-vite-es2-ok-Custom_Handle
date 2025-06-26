@@ -5043,7 +5043,7 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               ) / 100;
-
+/*
             return new mxPoint(
               bounds.x +
                 bounds.width -
@@ -5053,6 +5053,17 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp,
             );
+*/
+            return new mxPoint(    //GUSA GS
+              bounds.x - 1 +
+                bounds.width -
+                Math.min(
+                  Math.max(bounds.width / 2, bounds.height / 2),
+                  Math.min(bounds.width, bounds.height) * arcSize,
+                ),
+              bounds.y + tmp +1 ,
+            );
+
           }
         },
         function (bounds, pt, me) {
@@ -5084,8 +5095,7 @@ import { Graph } from "./Graph.js";
       );
     }
 
-    function createArcHandleFunction_() {
-	    console.log("createArcHandleFunction set");
+    function createArcHandleFunction() {
       return function (state) {
         var handles = [];
 
@@ -5093,12 +5103,11 @@ import { Graph } from "./Graph.js";
           handles.push(createArcHandle(state));
         }
 
-	    console.log("createArcHandleFunction exec", handles);
         return handles;
       };
     }
 
-    function createArcHandleFunction() {  // GUSA GS
+    function createArcHandleFunction_() {  // GUSA GS
       return function (state) {
         var handles = [];
         return handles;
@@ -5304,6 +5313,34 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               );
+              //return new mxPoint(bounds.x, bounds.y + size);
+              return new mxPoint(bounds.x -8 , bounds.y + size);  // GUSA GS
+            },
+            function (bounds, pt) {
+              this.state.style["size"] = Math.max(0, pt.y - bounds.y);
+            },
+            true,
+          ),
+        ];
+      };
+    }
+
+    function createCylinderHandleFunction_(defaultValue) {
+      return function (state) {
+        return [
+          createHandle(
+            state,
+            ["size"],
+            function (bounds) {
+              var size = Math.max(
+                0,
+                Math.min(
+                  bounds.height * 0.5,
+                  parseFloat(
+                    mxUtils.getValue(this.state.style, "size", defaultValue),
+                  ),
+                ),
+              );
 
               return new mxPoint(bounds.x, bounds.y + size);
             },
@@ -5315,7 +5352,6 @@ import { Graph } from "./Graph.js";
         ];
       };
     }
-
     function createArrowHandleFunction(maxSize) {
       return function (state) {
         return [
@@ -6319,11 +6355,17 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               );
-
+/*
               return new mxPoint(
                 bounds.x + position2 * bounds.width,
                 bounds.y + bounds.height,
               );
+*/
+              return new mxPoint(                          //GUSA  GS
+                bounds.x + position2 * bounds.width,
+                bounds.y + bounds.height + 10,
+              );
+ //             return new mxPoint(110,110);
             },
             function (bounds, pt) {
               this.state.style["position2"] =
@@ -6377,6 +6419,9 @@ import { Graph } from "./Graph.js";
                   Math.min(bounds.width, position * bounds.width + base),
                 bounds.y + bounds.height - size,
               );
+	      
+              //return new mxPoint(100,100);
+
             },
             function (bounds, pt) {
               var position = Math.max(
@@ -6410,6 +6455,7 @@ import { Graph } from "./Graph.js";
         }
 
         return handles;
+        //return [];
       },
       internalStorage: function (state) {
         var handles = [
@@ -6917,7 +6963,7 @@ import { Graph } from "./Graph.js";
           name = mxConstants.SHAPE_SWIMLANE;
         }
 
-	 console.log("cange name", name);
+	 console.log("change name", name);
         var fn = handleFactory[name];
 
         if (

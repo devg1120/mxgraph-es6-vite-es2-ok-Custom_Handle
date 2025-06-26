@@ -140,6 +140,7 @@ export class mxHandle {
       var pt = this.getPosition(this.state.getPaintBounds());
 
       if (pt != null) {
+	//      console.log("pt");
         var alpha = mxUtils.toRadians(this.getTotalRotation());
         pt = this.rotatePoint(this.flipPoint(pt), alpha);
         var scale = this.graph.view.scale;
@@ -150,6 +151,7 @@ export class mxHandle {
         this.shape.bounds.y = Math.floor(
           (pt.y + tr.y) * scale - this.shape.bounds.height / 2,
         );
+	//      console.log(this.shape.bounds.x, this.shape.bounds.y);
         this.shape.redraw();
       }
     }

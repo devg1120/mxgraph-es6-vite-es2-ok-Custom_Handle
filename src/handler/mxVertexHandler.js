@@ -243,8 +243,9 @@ static   rotationHandleVSpacing = -16;
   createSizer(cursor, index, size, fillColor) {
     size = size || mxConstants.HANDLE_SIZE;
     var bounds = new mxRectangle(0, 0, size, size);
+    console.log("bounds", bounds);
     var sizer = this.createSizerShape(bounds, index, fillColor);
-
+    console.log("sizer", sizer);
     if (
       sizer.isHtmlAllowed() &&
       this.state.text != null &&
@@ -280,6 +281,7 @@ static   rotationHandleVSpacing = -16;
 
   createSizerShape(bounds, index, fillColor) {
     if (this.handleImage != null) {
+      // console.log("createSizerShape A");
       bounds = new mxRectangle(
         bounds.x,
         bounds.y,
@@ -290,13 +292,14 @@ static   rotationHandleVSpacing = -16;
       shape.preserveImageAspect = false;
       return shape;
     } else if (index == mxEvent.ROTATION_HANDLE) {
+       //console.log("createSizerShape B");
       return new mxEllipse(
         bounds,
         fillColor || mxConstants.HANDLE_FILLCOLOR,
         mxConstants.HANDLE_STROKECOLOR,
       );
     } else {
-       console.log("createSizerShape C", bounds);
+       //console.log("createSizerShape C");
       return new mxRectangleShape(
         bounds,
         fillColor || mxConstants.HANDLE_FILLCOLOR,
@@ -1300,6 +1303,7 @@ static   rotationHandleVSpacing = -16;
     var tol = this.tolerance;
     this.horizontalOffset = 0;
     this.verticalOffset = 0;
+/*
     if (this.customHandles != null) {
       for (var i = 0; i < this.customHandles.length; i++) {
         var temp = this.customHandles[i].shape.node.style.display;
@@ -1308,6 +1312,21 @@ static   rotationHandleVSpacing = -16;
         this.customHandles[i].shape.node.style.visibility =
           this.isCustomHandleVisible(this.customHandles[i]) ? "" : "hidden";
       }
+    }
+*/
+    try {
+    if (this.customHandles != null) {
+      for (var i = 0; i < this.customHandles.length; i++) {
+        var temp = this.customHandles[i].shape.node.style.display;
+        this.customHandles[i].redraw();
+        this.customHandles[i].shape.node.style.display = temp;
+        this.customHandles[i].shape.node.style.visibility =
+          this.isCustomHandleVisible(this.customHandles[i]) ? "" : "hidden";
+      }
+    }
+
+    } catch (error) {
+      console.log("ERROR", error);
     }
 
     if (
