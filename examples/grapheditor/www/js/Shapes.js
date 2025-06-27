@@ -5011,8 +5011,8 @@ import { Graph } from "./Graph.js";
         state,
         [mxConstants.STYLE_ARCSIZE],
         function (bounds) {
-          //var tmp = yOffset != null ? yOffset : bounds.height / 8 ; 
-          var tmp = yOffset != null ? yOffset : bounds.height / 8 + 1; //GUSA
+          var tmp = yOffset != null ? yOffset : bounds.height / 8 ; 
+          //var tmp = yOffset != null ? yOffset : bounds.height / 8 + 1; //GUSA
 
           if (
             mxUtils.getValue(
@@ -5044,7 +5044,7 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               ) / 100;
-
+/*
             return new mxPoint(
               bounds.x +
                 bounds.width -
@@ -5054,8 +5054,8 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp,
             );
+*/
 
-/*
             return new mxPoint(    //GUSA GS
               bounds.x - 1 +
                 bounds.width -
@@ -5065,7 +5065,7 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp +1 ,
             );
-*/
+
           }
         },
         function (bounds, pt, me) {
