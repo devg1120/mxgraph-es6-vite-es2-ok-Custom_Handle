@@ -111,6 +111,22 @@ export class mxShape {
   redraw() {
     this.updateBoundsFromPoints();
 
+    if ( !this.checkBounds()) {
+       if ( this.constructor.name != 'mxLabel' )  {
+	 console.log("checkBounds Error", this.constructor.name);
+         if(isNaN(this.scale)        ) { console.log("  Err  1: scale isNaN ",this);}
+         if(!isFinite(this.scale)    ) { console.log("  Err  2: scale not isFinite ",this);} 
+         if(!this.scale > 0          ) { console.log("  Err  3: scale < 0 ",this);}
+         if(this.bounds == null      ) { console.log("  Err  4: bounds null ",this);}
+         if(isNaN(this.bounds.x)     ) { console.log("  Err  5: bounds.x isNaN ",this);}
+         if(isNaN(this.bounds.y)     ) { console.log("  Err  6: bounds.y isNaN ",this);}
+         if(isNaN(this.bounds.width) ) { console.log("  Err  7: bounds.width isNaN ",this);}
+         if(isNaN(this.bounds.height)) { console.log("  Err  8: bounds.height isNaN ",this);}
+         if(!this.bounds.width > 0   ) { console.log("  Err  9: bounds.width < 0 ",this);}
+         if(!this.bounds.height > 0  ) { console.log("  Err 10 bounds.height < 0 ",this);}
+       }
+    }
+
     if (this.visible && this.checkBounds()) {
       this.node.style.visibility = "visible";
       this.clear();
@@ -146,7 +162,6 @@ export class mxShape {
 
     if (pts != null && pts.length > 0 && pts[0] != null) {
       this.bounds = new mxRectangle(Number(pts[0].x), Number(pts[0].y), 1, 1);
-
       for (var i = 1; i < this.points.length; i++) {
         if (pts[i] != null) {
           this.bounds.add(
@@ -155,6 +170,7 @@ export class mxShape {
         }
       }
     }
+    
   }
 
   getLabelBounds(rect) {
@@ -629,7 +645,7 @@ export class mxShape {
   }
 
   getGradientBounds(c, x, y, w, h) {
-    return new mxRectangle(x, y, w, h);
+    return new mxRectangle(Number(x), Number(y), w, h);
   }
 
   updateTransform(c, x, y, w, h) {

@@ -147,7 +147,6 @@ static   rotationHandleVSpacing = -16;
       this.sizers.push(this.rotationShape);
     }
 
-    console.log("sizers", this.sizers);
 
 
     this.customHandles = this.createCustomHandles();
@@ -243,9 +242,7 @@ static   rotationHandleVSpacing = -16;
   createSizer(cursor, index, size, fillColor) {
     size = size || mxConstants.HANDLE_SIZE;
     var bounds = new mxRectangle(0, 0, size, size);
-    console.log("bounds", bounds);
     var sizer = this.createSizerShape(bounds, index, fillColor);
-    console.log("sizer", sizer);
     if (
       sizer.isHtmlAllowed() &&
       this.state.text != null &&
@@ -262,7 +259,6 @@ static   rotationHandleVSpacing = -16;
           : mxConstants.DIALECT_SVG;
       sizer.init(this.graph.getView().getOverlayPane());
     }
-
     mxEvent.redirectMouseEvents(sizer.node, this.graph, this.state);
 
     if (this.graph.isEnabled()) {
@@ -280,6 +276,7 @@ static   rotationHandleVSpacing = -16;
   }
 
   createSizerShape(bounds, index, fillColor) {
+	  console.log("createSizerShape  bounds", bounds);
     if (this.handleImage != null) {
       // console.log("createSizerShape A");
       bounds = new mxRectangle(
@@ -299,12 +296,13 @@ static   rotationHandleVSpacing = -16;
         mxConstants.HANDLE_STROKECOLOR,
       );
     } else {
-       //console.log("createSizerShape C");
-      return new mxRectangleShape(
+      let r =  new mxRectangleShape(
         bounds,
         fillColor || mxConstants.HANDLE_FILLCOLOR,
         mxConstants.HANDLE_STROKECOLOR,
       );
+     console.log(r);
+	    return r;
     }
   }
 
@@ -505,6 +503,7 @@ static   rotationHandleVSpacing = -16;
   }
 
   setHandlesVisible(visible) {
+	  console.log("setHandlesVisible", visible);
     if (this.sizers != null) {
       for (var i = 0; i < this.sizers.length; i++) {
         this.sizers[i].node.style.display = visible ? "" : "none";
@@ -519,6 +518,7 @@ static   rotationHandleVSpacing = -16;
   }
 
   hideSizers() {
+	  console.log("hideSizers")
     this.setHandlesVisible(false);
   }
 
@@ -755,10 +755,10 @@ static   rotationHandleVSpacing = -16;
 
     var old = this.bounds;
     this.bounds = new mxRectangle(
-      (this.parentState != null ? this.parentState.x : tr.x * scale) +
-        this.unscaledBounds.x * scale,
-      (this.parentState != null ? this.parentState.y : tr.y * scale) +
-        this.unscaledBounds.y * scale,
+      Number((this.parentState != null ? this.parentState.x : tr.x * scale) +
+        this.unscaledBounds.x * scale),
+      Number((this.parentState != null ? this.parentState.y : tr.y * scale) +
+        this.unscaledBounds.y * scale),
       this.unscaledBounds.width * scale,
       this.unscaledBounds.height * scale,
     );
@@ -1024,6 +1024,7 @@ static   rotationHandleVSpacing = -16;
       for (var i = 0; i < this.sizers.length; i++) {
         if (this.sizers[i] != null) {
           this.sizers[i].node.style.display = "";
+		console.log("sizer display")
         }
       }
 
@@ -1328,7 +1329,6 @@ static   rotationHandleVSpacing = -16;
     } catch (error) {
       console.log("ERROR", error);
     }
-
     if (
       this.sizers != null &&
       this.sizers.length > 0 &&
@@ -1385,6 +1385,7 @@ static   rotationHandleVSpacing = -16;
             "sw-resize",
             "w-resize",
           ];
+
           var alpha = mxUtils.toRadians(
             this.state.style[mxConstants.STYLE_ROTATION] || "0",
           );

@@ -5011,7 +5011,8 @@ import { Graph } from "./Graph.js";
         state,
         [mxConstants.STYLE_ARCSIZE],
         function (bounds) {
-          var tmp = yOffset != null ? yOffset : bounds.height / 8;
+          //var tmp = yOffset != null ? yOffset : bounds.height / 8 ; 
+          var tmp = yOffset != null ? yOffset : bounds.height / 8 + 1; //GUSA
 
           if (
             mxUtils.getValue(
@@ -5043,7 +5044,7 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               ) / 100;
-/*
+
             return new mxPoint(
               bounds.x +
                 bounds.width -
@@ -5053,7 +5054,8 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp,
             );
-*/
+
+/*
             return new mxPoint(    //GUSA GS
               bounds.x - 1 +
                 bounds.width -
@@ -5063,7 +5065,7 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp +1 ,
             );
-
+*/
           }
         },
         function (bounds, pt, me) {
@@ -6952,7 +6954,6 @@ import { Graph } from "./Graph.js";
         //if (this.graph.isCellResizable(this.state.cell) || this.graph.isCellMovable(this.state.cell))
 	     
         var name = this.state.style["shape"];
-	 console.log("name", name);
 
         if (
           mxCellRenderer.defaultShapes[name] == null &&
@@ -6963,7 +6964,6 @@ import { Graph } from "./Graph.js";
           name = mxConstants.SHAPE_SWIMLANE;
         }
 
-	 console.log("change name", name);
         var fn = handleFactory[name];
 
         if (
@@ -6987,11 +6987,9 @@ import { Graph } from "./Graph.js";
           }
         }
 
-
+       
       }
-
-	    console.log("name", name);
-	    console.log("handles", handles);
+      //console.log(handles);
       return handles;
     };
 
