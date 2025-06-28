@@ -148,6 +148,8 @@ export class mxHandle {
         this.shape.bounds.x = Math.floor(
           (pt.x + tr.x) * scale - this.shape.bounds.width / 2,
         );
+        if (isNaN(this.shape.bounds.x)) { console.log("#1 ************ NaN Err"); }
+
         this.shape.bounds.y = Math.floor(
           (pt.y + tr.y) * scale - this.shape.bounds.height / 2,
         );

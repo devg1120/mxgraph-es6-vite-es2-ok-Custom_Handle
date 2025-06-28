@@ -5044,7 +5044,7 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               ) / 100;
-/*
+
             return new mxPoint(
               bounds.x +
                 bounds.width -
@@ -5054,8 +5054,8 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp,
             );
-*/
 
+/*
             return new mxPoint(    //GUSA GS
               bounds.x - 1 +
                 bounds.width -
@@ -5065,7 +5065,7 @@ import { Graph } from "./Graph.js";
                 ),
               bounds.y + tmp +1 ,
             );
-
+*/
           }
         },
         function (bounds, pt, me) {
@@ -5315,8 +5315,8 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               );
-              //return new mxPoint(bounds.x, bounds.y + size);
-              return new mxPoint(bounds.x -8 , bounds.y + size);  // GUSA GS
+              return new mxPoint(bounds.x, bounds.y + size);
+              //return new mxPoint(bounds.x -8 , bounds.y + size);  // GUSA GS
             },
             function (bounds, pt) {
               this.state.style["size"] = Math.max(0, pt.y - bounds.y);
@@ -6357,16 +6357,17 @@ import { Graph } from "./Graph.js";
                   ),
                 ),
               );
-/*
+
               return new mxPoint(
                 bounds.x + position2 * bounds.width,
                 bounds.y + bounds.height,
               );
-*/
+/*
               return new mxPoint(                          //GUSA  GS
                 bounds.x + position2 * bounds.width,
                 bounds.y + bounds.height + 10,
               );
+	      */
  //             return new mxPoint(110,110);
             },
             function (bounds, pt) {

@@ -1,19 +1,31 @@
 
-# lib
+---------------------------------------------------------
+customHandler 表示制限	　scale >=1
 
-handler/ mxHandle.js 
+# src/handler/mxVertexHandler.js
 
-  init() {
-    //var html = this.isHtmlRequired();
-    html = true;  // GUSA GS
+redrawHandles() {
+
+......
 
 
-#/grapheditor/www/js  /Shapes.js
+if (this.state.view.scale >= 1) {  // GUSA  GS
+    try {
+    if (this.customHandles != null) {
+      for (var i = 0; i < this.customHandles.length; i++) {
+        var temp = this.customHandles[i].shape.node.style.display;
+        this.customHandles[i].redraw();
+        this.customHandles[i].shape.node.style.display = temp;
+        this.customHandles[i].shape.node.style.visibility =
+          this.isCustomHandleVisible(this.customHandles[i]) ? "" : "hidden";
+      }
+    }
+  
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+}
 
-import {
-  ....
-  mxVertexHandler,
-  mxEdgeHandler,
-  mxHandle
-} from "../../../../dist/mxgraph.es.js";
+-----
 
+}

@@ -16,9 +16,9 @@ export class mxVertexHandler {
   index = null;
   allowHandleBoundsCheck = true;
   handleImage = null;
-static  tolerance = 0;
-static  rotationEnabled = false;
-static  parentHighlightEnabled = false;
+  tolerance = 0;
+  rotationEnabled = false;
+  parentHighlightEnabled = false;
   rotationRaster = true;
   rotationCursor = "crosshair";
 static  livePreview = false;
@@ -276,7 +276,6 @@ static   rotationHandleVSpacing = -16;
   }
 
   createSizerShape(bounds, index, fillColor) {
-	  console.log("createSizerShape  bounds", bounds);
     if (this.handleImage != null) {
       // console.log("createSizerShape A");
       bounds = new mxRectangle(
@@ -301,15 +300,18 @@ static   rotationHandleVSpacing = -16;
         fillColor || mxConstants.HANDLE_FILLCOLOR,
         mxConstants.HANDLE_STROKECOLOR,
       );
-     console.log(r);
+    // console.log(r);
 	    return r;
     }
   }
 
-  moveSizerTo(shape, x, y) {
+  moveSizerTo(shape, x, y, from) {
     if (shape != null) {
       shape.bounds.x = Math.floor(x - shape.bounds.width / 2);
       shape.bounds.y = Math.floor(y - shape.bounds.height / 2);
+	   if (isNaN(x)) { console.log("#2 x ************ NaN Err",x, "from:", from); }
+	   if (isNaN(y)) { console.log("#2 y ************ NaN Err",y, "from:", from); }
+
 
       if (shape.node != null && shape.node.style.display != "none") {
         shape.redraw();
@@ -503,7 +505,6 @@ static   rotationHandleVSpacing = -16;
   }
 
   setHandlesVisible(visible) {
-	  console.log("setHandlesVisible", visible);
     if (this.sizers != null) {
       for (var i = 0; i < this.sizers.length; i++) {
         this.sizers[i].node.style.display = visible ? "" : "none";
@@ -518,7 +519,6 @@ static   rotationHandleVSpacing = -16;
   }
 
   hideSizers() {
-	  console.log("hideSizers")
     this.setHandlesVisible(false);
   }
 
@@ -614,7 +614,7 @@ static   rotationHandleVSpacing = -16;
       this.rotationShape != null
         ? this.sizers.length - 2
         : this.sizers.length - 1;
-    this.moveSizerTo(this.sizers[index], point.x, point.y);
+    this.moveSizerTo(this.sizers[index], point.x, point.y, "A");
   }
 
   rotateVertex(me) {
@@ -1024,7 +1024,6 @@ static   rotationHandleVSpacing = -16;
       for (var i = 0; i < this.sizers.length; i++) {
         if (this.sizers[i] != null) {
           this.sizers[i].node.style.display = "";
-		console.log("sizer display")
         }
       }
 
@@ -1279,7 +1278,7 @@ static   rotationHandleVSpacing = -16;
   getHandlePadding() {
     var result = new mxPoint(0, 0);
     var tol = this.tolerance;
-
+    //console.log("tol", tol);
     if (
       this.sizers != null &&
       this.sizers.length > 0 &&
@@ -1304,7 +1303,7 @@ static   rotationHandleVSpacing = -16;
     var tol = this.tolerance;
     this.horizontalOffset = 0;
     this.verticalOffset = 0;
-/*
+/*  
     if (this.customHandles != null) {
       for (var i = 0; i < this.customHandles.length; i++) {
         var temp = this.customHandles[i].shape.node.style.display;
@@ -1315,6 +1314,10 @@ static   rotationHandleVSpacing = -16;
       }
     }
 */
+
+//console.log(this.state.view.scale )
+if (this.state.view.scale >= 0.8) {  // GUSA  GS
+
     try {
     if (this.customHandles != null) {
       for (var i = 0; i < this.customHandles.length; i++) {
@@ -1329,6 +1332,7 @@ static   rotationHandleVSpacing = -16;
     } catch (error) {
       console.log("ERROR", error);
     }
+} //GUSA
     if (
       this.sizers != null &&
       this.sizers.length > 0 &&
@@ -1336,9 +1340,11 @@ static   rotationHandleVSpacing = -16;
     ) {
       if (this.index == null && this.manageSizers && this.sizers.length >= 8) {
         var padding = this.getHandlePadding();
+        //console.log("padding",padding);
         this.horizontalOffset = padding.x;
         this.verticalOffset = padding.y;
-
+        //console.log("horizontalOffset",this.horizontalOffset);
+        //console.log("tarticalOffset",this.verticalOffset);
         if (this.horizontalOffset != 0 || this.verticalOffset != 0) {
           s = new mxRectangle(s.x, s.y, s.width, s.height);
           s.x -= this.horizontalOffset / 2;
@@ -1369,7 +1375,7 @@ static   rotationHandleVSpacing = -16;
       var b = s.y + s.height;
 
       if (this.singleSizer) {
-        this.moveSizerTo(this.sizers[0], r, b);
+        this.moveSizerTo(this.sizers[0], r, b, "B");
       } else {
         var cx = s.x + s.width / 2;
         var cy = s.y + s.height / 2;
@@ -1394,55 +1400,60 @@ static   rotationHandleVSpacing = -16;
           var da = Math.round((alpha * 4) / Math.PI);
           var ct = new mxPoint(s.getCenterX(), s.getCenterY());
           var pt = mxUtils.getRotatedPoint(new mxPoint(s.x, s.y), cos, sin, ct);
-          this.moveSizerTo(this.sizers[0], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[0], pt.x, pt.y, "C");
           this.sizers[0].setCursor(crs[mxUtils.mod(0 + da, crs.length)]);
           pt.x = cx;
           pt.y = s.y;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[1], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[1], pt.x, pt.y, "D");
           this.sizers[1].setCursor(crs[mxUtils.mod(1 + da, crs.length)]);
           pt.x = r;
           pt.y = s.y;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[2], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[2], pt.x, pt.y, "E");
           this.sizers[2].setCursor(crs[mxUtils.mod(2 + da, crs.length)]);
           pt.x = s.x;
           pt.y = cy;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[3], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[3], pt.x, pt.y, "F");
           this.sizers[3].setCursor(crs[mxUtils.mod(7 + da, crs.length)]);
           pt.x = r;
           pt.y = cy;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[4], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[4], pt.x, pt.y, "G");
           this.sizers[4].setCursor(crs[mxUtils.mod(3 + da, crs.length)]);
           pt.x = s.x;
           pt.y = b;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[5], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[5], pt.x, pt.y, "H");
           this.sizers[5].setCursor(crs[mxUtils.mod(6 + da, crs.length)]);
           pt.x = cx;
           pt.y = b;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[6], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[6], pt.x, pt.y, "I");
           this.sizers[6].setCursor(crs[mxUtils.mod(5 + da, crs.length)]);
           pt.x = r;
           pt.y = b;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[7], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[7], pt.x, pt.y, "J");
           this.sizers[7].setCursor(crs[mxUtils.mod(4 + da, crs.length)]);
           pt.x = cx + this.state.absoluteOffset.x;
           pt.y = cy + this.state.absoluteOffset.y;
           pt = mxUtils.getRotatedPoint(pt, cos, sin, ct);
-          this.moveSizerTo(this.sizers[8], pt.x, pt.y);
+          this.moveSizerTo(this.sizers[8], pt.x, pt.y, "K");
         } else if (this.state.width >= 2 && this.state.height >= 2) {
+		
           this.moveSizerTo(
             this.sizers[0],
             cx + this.state.absoluteOffset.x,
             cy + this.state.absoluteOffset.y,
+		  "L"
           );
+	  
         } else {
-          this.moveSizerTo(this.sizers[0], this.state.x, this.state.y);
+	
+          this.moveSizerTo(this.sizers[0], this.state.x, this.state.y, "M");
+	  
         }
       }
     }
@@ -1464,7 +1475,7 @@ static   rotationHandleVSpacing = -16;
       );
 
       if (this.rotationShape.node != null) {
-        this.moveSizerTo(this.rotationShape, pt.x, pt.y);
+        this.moveSizerTo(this.rotationShape, pt.x, pt.y, "M");
         this.rotationShape.node.style.visibility =
           this.state.view.graph.isEditing() ? "hidden" : "";
       }
