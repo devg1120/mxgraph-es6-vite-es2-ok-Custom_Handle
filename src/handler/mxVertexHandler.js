@@ -16,18 +16,19 @@ export class mxVertexHandler {
   index = null;
   allowHandleBoundsCheck = true;
   handleImage = null;
+//static  tolerance = 0;
   tolerance = 0;
-  rotationEnabled = false;
+  rotationEnabled = true;
   parentHighlightEnabled = false;
   rotationRaster = true;
   rotationCursor = "crosshair";
-//static  livePreview = false;
-  livePreview = false;
-//static  manageSizers = false;
-  manageSizers = false;
+static  livePreview = false;
+//  livePreview = false;
+static  manageSizers = false;
+//  manageSizers = false;
   constrainGroupByChildren = false;
-//static   rotationHandleVSpacing = -16;
-  rotationHandleVSpacing = -16;
+static   rotationHandleVSpacing = -16;
+//  rotationHandleVSpacing = -16;
   horizontalOffset = 0;
   verticalOffset = 0;
 
