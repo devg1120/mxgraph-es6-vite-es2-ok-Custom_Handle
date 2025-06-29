@@ -8,6 +8,7 @@
 import * as m from "../../../../dist/mxgraph.es.js";
 import { Editor } from "./Editor.js";
 import { Graph } from "./Graph.js";
+import { HoverIcons } from "./Graph.js";
 
 export class Sidebar {
   constructor(editorUi, container) {
