@@ -21,10 +21,13 @@ export class mxVertexHandler {
   parentHighlightEnabled = false;
   rotationRaster = true;
   rotationCursor = "crosshair";
-static  livePreview = false;
-static  manageSizers = false;
+//static  livePreview = false;
+  livePreview = false;
+//static  manageSizers = false;
+  manageSizers = false;
   constrainGroupByChildren = false;
-static   rotationHandleVSpacing = -16;
+//static   rotationHandleVSpacing = -16;
+  rotationHandleVSpacing = -16;
   horizontalOffset = 0;
   verticalOffset = 0;
 
