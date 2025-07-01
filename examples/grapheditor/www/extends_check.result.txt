@@ -1,0 +1,9 @@
+CylinderShape3
+   new:mxShape
+   old:mxCylinder
+CalloutShape
+   new:mxActor
+   old:mxHexagon
+HexagonShape
+   new:mxActor
+   old:mxHexagon

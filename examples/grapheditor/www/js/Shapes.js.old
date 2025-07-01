@@ -743,8 +743,7 @@ import { Graph } from "./Graph.js";
   mxUtils.extend(CylinderShape3, mxCylinder);
 */
 
-  //class CylinderShape3 extends mxShape {
-  class CylinderShape3 extends mxCylinder {
+  class CylinderShape3 extends mxShape {
     constructor(bounds, fill, stroke, strokewidth) {
       super();
       this.bounds = bounds;
@@ -1942,8 +1941,7 @@ import { Graph } from "./Graph.js";
   mxUtils.extend(CalloutShape, mxHexagon);
 */
 
-  //class CalloutShape extends mxActor {
-  class CalloutShape extends mxHexagon {
+  class CalloutShape extends mxActor {
     constructor() {
       super();
     }
@@ -2088,8 +2086,7 @@ import { Graph } from "./Graph.js";
   mxUtils.extend(HexagonShape, mxHexagon);
 */
 
-  //class HexagonShape extends mxActor {
-  class HexagonShape extends mxHexagon {
+  class HexagonShape extends mxActor {
     constructor() {
       super();
     }
