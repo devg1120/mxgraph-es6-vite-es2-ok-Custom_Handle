@@ -79,6 +79,7 @@ var mxLoadResources = false;
 
       this.actions.get("saveAs").setEnabled(true);  // GUSA
     // Updates action states which require a backend
+/*  GUSA post error
     if (!Editor.useLocalStorage) {
       m.mxUtils.post(
         OPEN_URL,
@@ -93,6 +94,7 @@ var mxLoadResources = false;
         }),
       );
     }
+    */
   };
 
   // Adds required resources (disables loading of fallback properties, this can only
