@@ -110,7 +110,6 @@ export class mxCodec {
 
   encode(obj) {
     var node = null;
-    console.log("encode");
     //console.dir(typeof(obj));
     if (obj != null && obj.constructor != null) {
       //var enc = mxCodecRegistry.getCodec(obj.constructor);

@@ -270,7 +270,7 @@ static   rotationHandleVSpacing = -16;
     }
 
     if (!this.isSizerVisible(index)) {
-      sizer.visible = false;
+     sizer.visible = false;
     }
     return sizer;
   }
@@ -313,8 +313,8 @@ static   rotationHandleVSpacing = -16;
     if (shape != null) {
       shape.bounds.x = Math.floor(x - shape.bounds.width / 2);
       shape.bounds.y = Math.floor(y - shape.bounds.height / 2);
-	   if (isNaN(x)) { console.log("#2 x ************ NaN Err",x, "from:", from); }
-	   if (isNaN(y)) { console.log("#2 y ************ NaN Err",y, "from:", from); }
+//	   if (isNaN(x)) { console.log("#2 x ************ NaN Err",x, "from:", from); }
+//	   if (isNaN(y)) { console.log("#2 y ************ NaN Err",y, "from:", from); }
 
 
       if (shape.node != null && shape.node.style.display != "none") {

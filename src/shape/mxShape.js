@@ -110,7 +110,7 @@ export class mxShape {
 
   redraw() {
     this.updateBoundsFromPoints();
-
+/*
     if ( !this.checkBounds()) {
        if ( this.constructor.name != 'mxLabel' )  {
 	 console.log("checkBounds Error", this.constructor.name);
@@ -126,7 +126,7 @@ export class mxShape {
          if(!this.bounds.height > 0  ) { console.log("  Err 10 bounds.height < 0 ",this);}
        }
     }
-
+*/
     if (this.visible && this.checkBounds()) {
       this.node.style.visibility = "visible";
       this.clear();
